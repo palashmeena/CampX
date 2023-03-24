@@ -21,6 +21,7 @@ const campgroundRoutes = require("./routes/campgrounds");
 const reviewRoutes = require("./routes/reviews");
 
 const MongoStore = require("connect-mongo");
+const MongoClient = require("mongodb").MongoClient;
 const dbUrl = process.env.DB_URL;
 //mongodb://127.0.0.1:27017/campx
 mongoose.connect(dbUrl, {
@@ -50,7 +51,13 @@ app.use(mongoSanitize());
 
 const secret = process.env.SECRET || "thisshouldbeabettersecret!";
 
-const store = MongoStore.create({
+const client = new MongoClient(dbUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
+
+const store = new MongoStore({
+    client: client,
     mongoUrl: dbUrl,
     crypto: {
         secret,
