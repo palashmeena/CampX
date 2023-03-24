@@ -29,6 +29,7 @@ mongoose.connect(dbUrl, {
     useUnifiedTopology: true,
     useUnifiedTopology: true,
 });
+mongoose.set("strictQuery", true);
 
 const db = mongoose.connection;
 
@@ -168,7 +169,7 @@ app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/reviews", reviewRoutes);
 
 app.get("/", (req, res) => {
-    res.render("Home");
+    res.render("home");
 });
 
 app.all("*", (req, res, next) => {
