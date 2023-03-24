@@ -20,7 +20,7 @@ const userRoutes = require("./routes/users");
 const campgroundRoutes = require("./routes/campgrounds");
 const reviewRoutes = require("./routes/reviews");
 
-const MongoStore = require("connect-mongo");
+const MongoDBStore = require("connect-mongo");
 const dbUrl = process.env.DB_URL;
 //mongodb://127.0.0.1:27017/campx
 mongoose.connect(dbUrl, {
@@ -50,7 +50,7 @@ app.use(mongoSanitize());
 
 const secret = process.env.SECRET || "thisshouldbeabettersecret!";
 
-const store = MongoStore.create({
+const store = MongoDBStore.create({
     mongoUrl: dbUrl,
     crypto: {
         secret,
